@@ -835,6 +835,21 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@inkline/inkline@^1.0.0", "@inkline/inkline@^1.21.4":
+  version "1.21.4"
+  resolved "https://registry.npm.taobao.org/@inkline/inkline/download/@inkline/inkline-1.21.4.tgz#d54ecd85d0b3477af13c923f5beb19aadfe59126"
+  integrity sha1-1U7NhdCzR3rxPJI/W+sZqt/lkSY=
+  dependencies:
+    fuse.js "^3.6.1"
+    popper.js "^1.16.1"
+
+"@inkline/vue-cli-plugin-inkline@~1.21.4":
+  version "1.21.4"
+  resolved "https://registry.npm.taobao.org/@inkline/vue-cli-plugin-inkline/download/@inkline/vue-cli-plugin-inkline-1.21.4.tgz#0ec2902ad3d4777539500c45b4d8bfbccd64c6ac"
+  integrity sha1-DsKQKtPUd3U5UAxFtNi/vM1kxqw=
+  dependencies:
+    "@inkline/inkline" "^1.21.4"
+
 "@intervolga/optimize-cssnano-plugin@^1.0.5":
   version "1.0.6"
   resolved "https://registry.npm.taobao.org/@intervolga/optimize-cssnano-plugin/download/@intervolga/optimize-cssnano-plugin-1.0.6.tgz#be7c7846128b88f6a9b1d1261a0ad06eb5c0fdf8"
@@ -4347,6 +4362,11 @@ functional-red-black-tree@^1.0.1:
   resolved "https://registry.npm.taobao.org/functional-red-black-tree/download/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
+fuse.js@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.npm.taobao.org/fuse.js/download/fuse.js-3.6.1.tgz?cache=0&sync_timestamp=1584653223831&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ffuse.js%2Fdownload%2Ffuse.js-3.6.1.tgz#7de85fdd6e1b3377c23ce010892656385fd9b10c"
+  integrity sha1-fehf3W4bM3fCPOAQiSZWOF/ZsQw=
+
 gensync@^1.0.0-beta.1:
   version "1.0.0-beta.1"
   resolved "https://registry.npm.taobao.org/gensync/download/gensync-1.0.0-beta.1.tgz#58f4361ff987e5ff6e1e7a210827aa371eaac269"
@@ -7239,6 +7259,11 @@ pnp-webpack-plugin@^1.6.0:
   integrity sha1-yXEaxNxIpoXauvyG+Lbdn434QUk=
   dependencies:
     ts-pnp "^1.1.6"
+
+popper.js@^1.16.1:
+  version "1.16.1"
+  resolved "https://registry.npm.taobao.org/popper.js/download/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
+  integrity sha1-KiI8s9x7YhPXQOQDcr5A3kPmWxs=
 
 portfinder@^1.0.25:
   version "1.0.25"
