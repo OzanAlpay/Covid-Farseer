@@ -5,12 +5,16 @@
         <i-nav>
           <i-nav-item href="#">COVID-19 Estimation</i-nav-item>
           <i-nav-item>
-            <i-select v-model="selectedCountry" placeholder="Select A Country">
+            <i-select
+              @input="onSelectionChange($event)"
+              placeholder="Select A Country"
+            >
               <i-select-option
                 v-for="(country, index) of countries"
                 :key="index"
-                :value="country"
+                :value="country | lowercase"
                 :label="country"
+                @change="onSelectionChange($event)"
               />
             </i-select>
           </i-nav-item>
@@ -20,18 +24,29 @@
         </i-nav>
       </i-column>
     </i-row>
-    SelectedCountry is = {{ selectedCountry }}
   </i-layout>
 </template>
 
 <script>
 export default {
   name: "AppNavbar",
-  data() {
-    return {
-      countries: ["Turkey", "USA", "Germany", "Italy"],
-      selectedCountry: ""
-    };
+  props: {
+    countries: {
+      type: Array
+    }
+  },
+  methods: {
+    onSelectionChange(event) {
+      this.$store.dispatch("setSelectedCountry", event);
+    }
+  },
+  filters: {
+    lowercase: function(value) {
+      if (value === "") {
+        return "chinamainland";
+      }
+      return value.toLowerCase();
+    }
   }
 };
 </script>
