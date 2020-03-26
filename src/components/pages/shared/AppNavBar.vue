@@ -13,7 +13,7 @@
                 v-for="(country, index) of countries"
                 :key="index"
                 :value="country.slug"
-                :label="country.country"
+                :label="country.name"
                 @change="onSelectionChange($event)"
               />
             </i-select>
@@ -37,15 +37,16 @@ export default {
   },
   methods: {
     onSelectionChange(event) {
-      this.$store.dispatch("setSelectedCountry", event);
+      this.$store.dispatch("setSelectedCountryBySlugName", event);
       console.log(this.showPlaceholder);
     }
   },
   computed: {
     showPlaceholder: function() {
       const selection = this.$store.getters.getSelectedCountry;
-      if (selection) {
-        return selection;
+      console.log("Selection is = " + selection);
+      if (selection.name) {
+        return selection.name;
       }
       return "Select A Country";
     }

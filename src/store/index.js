@@ -7,7 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     availableCountries: [],
-    selectedCountry: ""
+    selectedCountry: {}
   },
   mutations: {
     SET_SELECTED_COUNTRY(state, country) {
@@ -18,27 +18,31 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    setSelectedCountry({ commit }, country) {
+    setSelectedCountryBySlugName({ commit, getters }, slugName) {
+      let country = getters.getAvailableCountries.filter(
+        country => country.slug === slugName
+      );
+      if (country.length !== 1) {
+        console.error("We have a problem Houston!");
+        // TODO Fallback to default?
+      }
+      country = country[0];
       commit("SET_SELECTED_COUNTRY", country);
     },
     setAvailableCountries({ commit, getters }) {
-      console.log("Set Available Countries Are Fired!");
-      if (getters.getAvailableCountries) {
-        console.log("Data Exists = ");
-        console.log(getters.getAvailableCountries);
-        // Data Exists No need to fetch it again
-        return;
+      if (getters.getAvailableCountries.length === 0) {
+        console.log("FETCH DATA!");
+        return CovidService.getAvailableCountries().then(response => {
+          let countries = response.data.Countries;
+          countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
+          countries = countries.map(country => ({
+            name: country.Country,
+            slug: country.Slug,
+            totalConfirmed: country.TotalConfirmed
+          }));
+          commit("SET_AVAILABLE_COUNTRIES", countries);
+        });
       }
-      return CovidService.getAvailableCountries().then(response => {
-        let countries = response.data.Countries;
-        countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
-        countries = countries.map(country => ({
-          country: country.Country,
-          slug: country.Slug,
-          totalConfirmed: country.TotalConfirmed
-        }));
-        commit("SET_AVAILABLE_COUNTRIES", countries);
-      });
       // TODO Catch Network Error Here
     }
   },
@@ -47,7 +51,7 @@ export default new Vuex.Store({
       return state.selectedCountry;
     },
     getAvailableCountries(state) {
-      return state.getAvailableCountries;
+      return state.availableCountries;
     }
   },
   modules: {}

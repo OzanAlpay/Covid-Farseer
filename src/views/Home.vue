@@ -1,18 +1,18 @@
 <template>
   <i-layout>
     <i-layout-header
-      ><AppNavBar :countries="availableCountries" />
+      ><AppNavBar :countries="getAvailableCountries" />
     </i-layout-header>
     <i-layout vertical>
       <i-layout-aside class="_background-primary">
         Left Aside
       </i-layout-aside>
       <i-layout-content class="_background-secondary">
-        <div v-if="selectedCountry">
-          Selected Country Set as {{ selectedCountry }}
+        <div v-if="getSelectedCountry">
+          Selected Country Set as {{ getSelectedCountry }}
         </div>
         Right Aside
-        {{ availableCountries }}
+        {{ getAvailableCountries }}
       </i-layout-content>
     </i-layout>
   </i-layout>
@@ -20,7 +20,7 @@
 
 <script>
 // @ is an alias to /src
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import AppNavBar from "@/components/pages/shared/AppNavBar.vue";
 export default {
   name: "Home",
@@ -31,7 +31,7 @@ export default {
     console.log("Home Component is Created!");
   },
   computed: {
-    ...mapState(["availableCountries", "selectedCountry"])
+    ...mapGetters(["getAvailableCountries", "getSelectedCountry"])
   }
 };
 </script>
