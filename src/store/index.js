@@ -30,7 +30,13 @@ export default new Vuex.Store({
         return;
       }
       return CovidService.getAvailableCountries().then(response => {
-        const countries = response.data.map(obj => obj.Country);
+        let countries = response.data.Countries;
+        countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
+        countries = countries.map(country => ({
+          country: country.Country,
+          slug: country.Slug,
+          totalConfirmed: country.TotalConfirmed
+        }));
         commit("SET_AVAILABLE_COUNTRIES", countries);
       });
       // TODO Catch Network Error Here

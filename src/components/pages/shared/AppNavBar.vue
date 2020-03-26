@@ -12,8 +12,8 @@
               <i-select-option
                 v-for="(country, index) of countries"
                 :key="index"
-                :value="country"
-                :label="country"
+                :value="country.slug"
+                :label="country.country"
                 @change="onSelectionChange($event)"
               />
             </i-select>

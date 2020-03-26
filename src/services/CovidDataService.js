@@ -13,6 +13,17 @@ const apiClient = axios.create({
 export default {
   getAvailableCountries() {
     console.log("getCountries Called!");
-    return apiClient.get("/countries");
+    return apiClient.get("/summary");
+  },
+  getDataByCountryName(countryName) {
+    console.log("getDataByCountryName");
+    const confimedCases = apiClient.get(
+      "/countries/" + countryName + "/status/confirmed"
+    );
+    console.log(confimedCases);
+    const recoveredCases = apiClient.get(
+      "/countries/" + countryName + "/status/recovered"
+    );
+    console.log(recoveredCases);
   }
 };
