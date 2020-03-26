@@ -9,9 +9,6 @@
         <TimeDataColumn />
       </i-layout-aside>
       <i-layout-content class="_background-secondary">
-        <div v-if="getSelectedCountry">
-          Selected Country Set as {{ getSelectedCountry }}
-        </div>
         <GraphColumn />
       </i-layout-content>
     </i-layout>

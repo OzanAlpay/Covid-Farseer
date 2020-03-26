@@ -38,13 +38,11 @@ export default {
   methods: {
     onSelectionChange(event) {
       this.$store.dispatch("setSelectedCountryBySlugName", event);
-      console.log(this.showPlaceholder);
     }
   },
   computed: {
     showPlaceholder: function() {
       const selection = this.$store.getters.getSelectedCountry;
-      console.log("Selection is = " + selection);
       if (selection.name) {
         return selection.name;
       }

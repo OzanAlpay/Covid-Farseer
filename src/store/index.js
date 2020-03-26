@@ -7,12 +7,21 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     availableCountries: [],
-    selectedCountry: {},
-    comparedCountry: {}
+    selectedCountry: {
+      countryData: {},
+      confirmedCaseData: [],
+      recoveredCaseData: [],
+      deathCaseData: []
+    },
+    comparedCountry: {
+      confirmedCaseData: [],
+      recoveredCaseData: [],
+      deathCaseData: []
+    }
   },
   mutations: {
     SET_SELECTED_COUNTRY(state, country) {
-      state.selectedCountry = country;
+      state.selectedCountry.countryData = country;
     },
     SET_AVAILABLE_COUNTRIES(state, countries) {
       state.availableCountries = countries;
@@ -39,7 +48,6 @@ export default new Vuex.Store({
       country = country[0];
       return CovidService.getDataByCountrySlug(country.slug).then(
         receivedData => {
-          console.log(receivedData);
           commit("SET_SELECTED_COUNTRY", country);
           commit(
             "SET_CONFIRMED_CASE_DATA_FOR_SELECTED_COUNTRY",
@@ -58,7 +66,6 @@ export default new Vuex.Store({
     },
     setAvailableCountries({ commit, getters }) {
       if (getters.getAvailableCountries.length === 0) {
-        console.log("FETCH DATA!");
         return CovidService.getAvailableCountries().then(response => {
           let countries = response.data.Countries;
           countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
@@ -75,10 +82,13 @@ export default new Vuex.Store({
   },
   getters: {
     getSelectedCountry(state) {
-      return state.selectedCountry;
+      return state.selectedCountry.countryData;
     },
     getAvailableCountries(state) {
       return state.availableCountries;
+    },
+    getSelectedCountryConfirmedCases(state) {
+      return state.selectedCountry.confirmedCaseData;
     }
   },
   modules: {}
