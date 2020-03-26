@@ -12,18 +12,24 @@ const apiClient = axios.create({
 
 export default {
   getAvailableCountries() {
-    console.log("getCountries Called!");
     return apiClient.get("/summary");
   },
-  getDataByCountryName(countryName) {
-    console.log("getDataByCountryName");
-    const confimedCases = apiClient.get(
-      "/countries/" + countryName + "/status/confirmed"
+  async getDataByCountrySlug(slug) {
+    const confirmedCases = await apiClient.get(
+      "/country/" + slug + "/status/confirmed"
     );
-    console.log(confimedCases);
-    const recoveredCases = apiClient.get(
-      "/countries/" + countryName + "/status/recovered"
+    console.log(confirmedCases);
+    const recoveredCases = await apiClient.get(
+      "/country/" + slug + "/status/recovered"
     );
-    console.log(recoveredCases);
+    const deathCases = await apiClient.get(
+      "/country/" + slug + "/status/deaths"
+    );
+    const receivedData = {
+      confirmed: confirmedCases,
+      recovered: recoveredCases,
+      deathCases: deathCases
+    };
+    return receivedData;
   }
 };

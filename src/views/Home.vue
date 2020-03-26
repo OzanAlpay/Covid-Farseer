@@ -6,13 +6,13 @@
     <i-layout vertical>
       <i-layout-aside class="_background-primary">
         Left Aside
+        <TimeDataColumn />
       </i-layout-aside>
       <i-layout-content class="_background-secondary">
         <div v-if="getSelectedCountry">
           Selected Country Set as {{ getSelectedCountry }}
         </div>
-        Right Aside
-        {{ getAvailableCountries }}
+        <GraphColumn />
       </i-layout-content>
     </i-layout>
   </i-layout>
@@ -22,13 +22,14 @@
 // @ is an alias to /src
 import { mapGetters } from "vuex";
 import AppNavBar from "@/components/pages/shared/AppNavBar.vue";
+import GraphColumn from "@/components/pages/shared/GraphColumn.vue";
+import TimeDataColumn from "@/components/pages/shared/TimeDataColumn.vue";
 export default {
   name: "Home",
   components: {
-    AppNavBar
-  },
-  created() {
-    console.log("Home Component is Created!");
+    AppNavBar,
+    GraphColumn,
+    TimeDataColumn
   },
   computed: {
     ...mapGetters(["getAvailableCountries", "getSelectedCountry"])

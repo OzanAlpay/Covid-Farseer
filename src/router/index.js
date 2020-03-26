@@ -15,19 +15,9 @@ const router = new VueRouter({
       component: Home,
       props: true,
       beforeEnter(to, from, next) {
-        console.log("Before Route Enter Called!");
         store.dispatch("setAvailableCountries").then(() => {
-          console.log("Dispatched");
           next();
         });
-      },
-      beforeRouteEnter(next) {
-        console.log("Before Enter!");
-        console.log(next);
-        console.log("Before Enter Fired!");
-        store
-          .dispatch("setAvailableCountries")
-          .then(() => console.log("Dispatched!"));
       }
     }
   ]
