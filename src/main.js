@@ -4,10 +4,8 @@ import router from "./router";
 import store from "./store";
 import "@inkline/inkline/dist/inkline.css";
 import Inkline from "@inkline/inkline";
-import TrendChart from "vue-trend-chart";
 
 Vue.use(Inkline);
-Vue.use(TrendChart);
 
 Vue.config.productionTip = false;
 

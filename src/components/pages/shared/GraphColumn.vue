@@ -8,6 +8,7 @@
         {{ getSelectedCountryConfirmedCases.map((day, index) => index) }}
       </div>
       <!-- <div>{{ getSelectedCountry }}</div> -->
+      <!--
       <div class="main-graph">
         <TrendChart
           :datasets="[
@@ -21,6 +22,7 @@
             xLabels: getSelectedCountryConfirmedCases.map((day, index) => index)
           }"
         ></TrendChart>
+        -->
       </div>
     </div>
   </div>
