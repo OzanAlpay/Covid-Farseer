@@ -7,12 +7,12 @@
           <i-nav-item>
             <i-select
               @input="onSelectionChange($event)"
-              placeholder="Select A Country"
+              :placeholder="showPlaceholder"
             >
               <i-select-option
                 v-for="(country, index) of countries"
                 :key="index"
-                :value="country | lowercase"
+                :value="country"
                 :label="country"
                 @change="onSelectionChange($event)"
               />
@@ -38,14 +38,16 @@ export default {
   methods: {
     onSelectionChange(event) {
       this.$store.dispatch("setSelectedCountry", event);
+      console.log(this.showPlaceholder);
     }
   },
-  filters: {
-    lowercase: function(value) {
-      if (value === "") {
-        return "chinamainland";
+  computed: {
+    showPlaceholder: function() {
+      const selection = this.$store.getters.getSelectedCountry;
+      if (selection) {
+        return selection;
       }
-      return value.toLowerCase();
+      return "Select A Country";
     }
   }
 };

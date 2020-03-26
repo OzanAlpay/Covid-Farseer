@@ -1,6 +1,8 @@
 <template>
   <i-layout>
-    <i-layout-header><AppNavBar :countries="countries" /> </i-layout-header>
+    <i-layout-header
+      ><AppNavBar :countries="availableCountries" />
+    </i-layout-header>
     <i-layout vertical>
       <i-layout-aside class="_background-primary">
         Left Aside
@@ -10,6 +12,7 @@
           Selected Country Set as {{ selectedCountry }}
         </div>
         Right Aside
+        {{ availableCountries }}
       </i-layout-content>
     </i-layout>
   </i-layout>
@@ -24,12 +27,12 @@ export default {
   components: {
     AppNavBar
   },
-  data() {
-    return {
-      countries: ["Turkey", "Germany", "USA", "France", "Italy"]
-    };
+  created() {
+    console.log("Home Component is Created!");
   },
-  computed: mapState(["selectedCountry"])
+  computed: {
+    ...mapState(["availableCountries", "selectedCountry"])
+  }
 };
 </script>
 <style scoped>
