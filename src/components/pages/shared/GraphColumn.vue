@@ -7,6 +7,7 @@
       <div>
         {{ getSelectedCountryConfirmedCases.map((day, index) => index) }}
       </div>
+      <CovidLineChart :chartData="getConfirmedCaseData"></CovidLineChart>
       <!-- <div>{{ getSelectedCountry }}</div> -->
       <!--
       <div class="main-graph">
@@ -23,15 +24,18 @@
           }"
         ></TrendChart>
         -->
-      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import CovidLineChart from "../../charts/CovidLineChart.vue";
 export default {
   name: "GraphColumn",
+  components: {
+    CovidLineChart
+  },
   computed: {
     ...mapGetters(["getSelectedCountry", "getSelectedCountryConfirmedCases"]),
     getConfirmedCaseData() {
@@ -40,44 +44,11 @@ export default {
         console.log(
           this.getSelectedCountryConfirmedCases.map(day => day.Cases)
         );
-        return 1;
+        return this.getSelectedCountryConfirmedCases.map(day => day.Cases);
       }
       return 0;
     }
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.main-graph {
-  &-controls {
-    @media (min-width: 699px) {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    select {
-      margin-left: 10px;
-      font-size: 14px;
-      border: 1px solid rgba(#000, 0.2);
-      background: transparent;
-    }
-  }
-  &-control {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    @media (max-width: 698px) {
-      justify-content: space-between;
-    }
-  }
-
-  .vtc {
-    height: 250px;
-    font-size: 12px;
-    .stroke {
-      stroke: #39af77;
-      stroke-width: 2;
-    }
-  }
-}
+<style scoped></style>
