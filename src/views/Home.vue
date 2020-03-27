@@ -8,7 +8,7 @@
         Left Aside
         <TimeDataColumn />
       </i-layout-aside>
-      <i-layout-content class="_background-secondary">
+      <i-layout-content class="_background-light">
         <GraphColumn />
       </i-layout-content>
     </i-layout>

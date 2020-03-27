@@ -33,6 +33,8 @@ export default new Vuex.Store({
       state.selectedCountry.recoveredCaseData = recoveredCaseData;
     },
     SET_DEATH_CASE_DATA_FOR_SELECTED_COUNTRY(state, deadCaseData) {
+      console.log("deadCaseData =");
+      console.log(deadCaseData);
       state.selectedCountry.deathCaseData = deadCaseData;
     }
   },
@@ -89,6 +91,12 @@ export default new Vuex.Store({
     },
     getSelectedCountryConfirmedCases(state) {
       return state.selectedCountry.confirmedCaseData;
+    },
+    getSelectedCountryRecovedCases(state) {
+      return state.selectedCountry.recoveredCaseData;
+    },
+    getSelectedCountryDeathCases(state) {
+      return state.selectedCountry.deathCaseData;
     }
   },
   modules: {}

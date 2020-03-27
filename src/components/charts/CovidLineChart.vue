@@ -6,8 +6,6 @@ export default {
   name: "CovidLineChart",
   props: ["chartData", "options"],
   mounted() {
-    console.log("Created!");
-    console.log(this.chartData);
     this.renderChart(this.chartData, this.options);
   },
   mixins: [reactiveProp]
