@@ -1,5 +1,10 @@
 <template>
   <div>
+    <i-row
+      ><i-column
+        ><h2>{{ getSelectedCountry.name }}</h2></i-column
+      >
+    </i-row>
     <i-row class="chartRow">
       <i-column xs="10" offset-xs="1">
         <CovidLineChart
@@ -9,26 +14,11 @@
         ></CovidLineChart>
       </i-column>
     </i-row>
-    <!-- <div>{{ getSelectedCountry }}</div> -->
-    <!--
-      <div class="main-graph">
-        <TrendChart
-          :datasets="[
-            {
-              data: getSelectedCountryConfirmedCases.map(day => day.Cases),
-              smooth: true,
-              fill: true
-            }
-          ]"
-          :labels="{
-            xLabels: getSelectedCountryConfirmedCases.map((day, index) => index)
-          }"
-        ></TrendChart>
-        -->
   </div>
 </template>
 
 <script>
+import Vue from "vue";
 import { mapGetters } from "vuex";
 import CovidLineChart from "../../charts/CovidLineChart.vue";
 export default {
@@ -50,9 +40,6 @@ export default {
       return this.getSelectedCountryRecovedCases.map(day => day.Cases);
     },
     getDeathCaseData() {
-      console.log("!!!!");
-      console.log(this.getSelectedCountryDeathCases);
-      console.log("!!!!");
       return this.getSelectedCountryDeathCases.map(day => day.Cases);
     },
     getNumberOfDays() {
@@ -60,7 +47,7 @@ export default {
     },
     parseDataForChart() {
       return {
-        labels: this.getNumberOfDays,
+        labels: Vue.filter("formatDate")(this.getSelectedCountryConfirmedCases),
         datasets: [
           {
             label: "Number of Confirmed Cases",
@@ -103,7 +90,7 @@ export default {
 </script>
 <style scoped>
 .chartContainer {
-  max-height: 40em !important;
+  max-height: 55em !important;
 }
 .chartRow {
   min-height: 40em !important;
