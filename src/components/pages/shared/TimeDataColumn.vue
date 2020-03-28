@@ -1,10 +1,16 @@
 <template>
-  <div>It is Time - Data Column !</div>
+  <div>
+    <TimeDataTable />
+  </div>
 </template>
 
 <script>
+import TimeDataTable from "../../tables/TimeDataTable.vue";
 export default {
-  name: "TimeDataColumn"
+  name: "TimeDataColumn",
+  components: {
+    TimeDataTable
+  }
 };
 </script>
 

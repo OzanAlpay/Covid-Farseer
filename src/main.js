@@ -5,8 +5,10 @@ import store from "./store";
 import "@inkline/inkline/dist/inkline.css";
 import Inkline from "@inkline/inkline";
 
-Vue.use(Inkline);
+import DateFormatterFilter from "./filters/DateFormatterFilter";
 
+Vue.use(Inkline);
+Vue.filter("formatDate", DateFormatterFilter);
 Vue.config.productionTip = false;
 
 new Vue({

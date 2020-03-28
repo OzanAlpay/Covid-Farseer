@@ -1,7 +1,4 @@
-export default dayData => {
-  console.log("DateFormatterFilter called!");
-  return dayData.map(data => {
-    let date = new Date(data.Date);
-    return date.toLocaleDateString("tr-Tr");
-  });
+export default iso8601DayString => {
+  let date = new Date(iso8601DayString);
+  return date.toLocaleDateString("tr-Tr");
 };

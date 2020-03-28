@@ -42,12 +42,14 @@ export default {
     getDeathCaseData() {
       return this.getSelectedCountryDeathCases.map(day => day.Cases);
     },
-    getNumberOfDays() {
-      return [...Array(this.getSelectedCountryConfirmedCases.length).keys()];
+    getTimeArrayForXAxis() {
+      return this.getSelectedCountryConfirmedCases.map(day => {
+        return Vue.filter("formatDate")(day.Date);
+      });
     },
     parseDataForChart() {
       return {
-        labels: Vue.filter("formatDate")(this.getSelectedCountryConfirmedCases),
+        labels: this.getTimeArrayForXAxis,
         datasets: [
           {
             label: "Number of Confirmed Cases",
