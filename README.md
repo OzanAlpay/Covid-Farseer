@@ -1,6 +1,6 @@
 ## What is it?
 
-It is a tool, that build for: What will the count of confirmed cases in country X tomorrrow dicussion easier. You can just draw your graph and share it with your friends.
+This tool built for making easy to visualize coronavirus based discussions(. Just enter your predictions for a country, and share chart with your friends. Since I did it in order to not only review my vue.js skills but also give it a try to [inkline](https://inkline.io/) framework, probably there won't be any additional feature/development. But if you add a feature into it, pull requests are more than welcome.
 
 ### How to run locally
 ```
@@ -8,8 +8,12 @@ yarn install
 yarn serve
 ```
 
-### Notes
-It's just a weekend-hobby project. There may be some poor-practices. If you want add any feature pull request are more than welcome
+### Example Screenshot
+![Example Screnshot](Screenshot.png)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Used Open Source libraries
+- [Vue.js](https://vuejs.org/)
+- [Inkline](https://inkline.io/)
+- [Chart.js](https://www.chartjs.org/)
+- [moment.js](https://momentjs.com/)
+
