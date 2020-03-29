@@ -31,21 +31,36 @@ export default {
       "getSelectedCountry",
       "getSelectedCountryConfirmedCases",
       "getSelectedCountryRecovedCases",
-      "getSelectedCountryDeathCases"
+      "getSelectedCountryDeathCases",
+      "getUserPredictions"
     ]),
     getConfirmedCaseData() {
-      return this.getSelectedCountryConfirmedCases.map(day => day.Cases);
+      return [
+        ...this.getSelectedCountryConfirmedCases.map(day => day.Cases),
+        ...this.getUserPredictions.confirmedCaseData
+      ];
     },
     getRecoveredCaseData() {
-      return this.getSelectedCountryRecovedCases.map(day => day.Cases);
+      return [
+        ...this.getSelectedCountryRecovedCases.map(day => day.Cases),
+        ...this.getUserPredictions.recoveredCaseData
+      ];
     },
     getDeathCaseData() {
-      return this.getSelectedCountryDeathCases.map(day => day.Cases);
+      return [
+        ...this.getSelectedCountryDeathCases.map(day => day.Cases),
+        ...this.getUserPredictions.deathCaseData
+      ];
     },
     getTimeArrayForXAxis() {
-      return this.getSelectedCountryConfirmedCases.map(day => {
-        return Vue.filter("formatDate")(day.Date);
-      });
+      return [
+        ...this.getSelectedCountryConfirmedCases.map(day => {
+          return Vue.filter("formatDate")(day.Date);
+        }),
+        ...this.getUserPredictions.dates.map(day => {
+          return Vue.filter("formatDate")(day);
+        })
+      ];
     },
     parseDataForChart() {
       return {

@@ -44,13 +44,28 @@
         <tr v-for="(data, index) of predictedData.predictions" :key="index">
           <td>{{ data.date | formatDate }}</td>
           <td>
-            <i-input size="sm" v-model="data.confirmedCases" />
+            <i-input
+              type="number"
+              size="sm"
+              @change="onPredictionChange()"
+              v-model.number="data.confirmedCases"
+            />
           </td>
           <td>
-            <i-input size="sm" v-model="data.recoveredCases" />
+            <i-input
+              type="number"
+              size="sm"
+              @change="onPredictionChange()"
+              v-model.number="data.recoveredCases"
+            />
           </td>
           <td>
-            <i-input size="sm" v-model="data.deathCases" />
+            <i-input
+              type="number"
+              size="sm"
+              @change="onPredictionChange()"
+              v-model.number="data.deathCases"
+            />
           </td>
         </tr>
       </tbody>
@@ -69,13 +84,11 @@ export default {
       const lastDayData = this.getLastDaysDetailsForSelectedCountry.confirmedCases.slice(
         -1
       );
-      console.log(lastDayData);
       return lastDayData.Date;
     }
   },
   methods: {
     createArrayFromBulkData: function(data) {
-      console.log(data);
       const arrayizedData = [];
       for (let index = 0; index < data.len; index++) {
         arrayizedData.push({
@@ -86,6 +99,9 @@ export default {
         });
       }
       return arrayizedData;
+    },
+    onPredictionChange() {
+      this.$store.dispatch("setUserPredictions", this.predictedData);
     }
   },
   data() {

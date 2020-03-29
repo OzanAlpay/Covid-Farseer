@@ -17,6 +17,13 @@ export default new Vuex.Store({
       confirmedCaseData: [],
       recoveredCaseData: [],
       deathCaseData: []
+    },
+    userPredictions: {
+      confirmedCaseData: [],
+      recoveredCaseData: [],
+      deathCaseData: [],
+      dates: [],
+      isPredictionDone: false
     }
   },
   mutations: {
@@ -34,9 +41,53 @@ export default new Vuex.Store({
     },
     SET_DEATH_CASE_DATA_FOR_SELECTED_COUNTRY(state, deadCaseData) {
       state.selectedCountry.deathCaseData = deadCaseData;
+    },
+    SET_USER_PREDICTIONS_CONFIRMED_CASES(state, confirmedCases) {
+      state.userPredictions.confirmedCaseData = confirmedCases;
+    },
+    SET_USER_PREDICTIONS_RECOVERED_CASES(state, recoveredCases) {
+      state.userPredictions.recoveredCaseData = recoveredCases;
+    },
+    SET_USER_PREDICTIONS_DEATH_CASES(state, deathCases) {
+      state.userPredictions.deathCaseData = deathCases;
+    },
+    SET_PREDICTED_DATES_IN_ISO_FORMAT(state, dates) {
+      state.userPredictions.dates = dates;
+    },
+    SET_PREDICTION_DONE(state) {
+      state.userPredictions.isPredictionDone = true;
+    },
+    RESET_USER_PREDICTIONS(state) {
+      state.userPredictions = {
+        confirmedCaseData: [],
+        recoveredCaseData: [],
+        deathCaseData: [],
+        dates: [],
+        isPredictionDone: false
+      };
     }
   },
   actions: {
+    setUserPredictions({ commit }, data) {
+      console.log(data);
+      commit(
+        "SET_USER_PREDICTIONS_CONFIRMED_CASES",
+        data.predictions.map(prediction => prediction.confirmedCases)
+      );
+      commit(
+        "SET_USER_PREDICTIONS_RECOVERED_CASES",
+        data.predictions.map(prediction => prediction.recoveredCases)
+      );
+      commit(
+        "SET_USER_PREDICTIONS_DEATH_CASES",
+        data.predictions.map(prediction => prediction.deathCases)
+      );
+      commit(
+        "SET_PREDICTED_DATES_IN_ISO_FORMAT",
+        data.predictions.map(prediction => prediction.date)
+      );
+      commit("SET_PREDICTION_DONE");
+    },
     setSelectedCountryBySlugName({ commit, getters }, slugName) {
       let country = getters.getAvailableCountries.filter(
         country => country.slug === slugName
@@ -104,6 +155,9 @@ export default new Vuex.Store({
         deathCases: getters.getSelectedCountryDeathCases.slice(-days),
         len: days
       };
+    },
+    getUserPredictions(state) {
+      return state.userPredictions;
     }
   },
   modules: {}
