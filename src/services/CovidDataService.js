@@ -18,7 +18,6 @@ export default {
     const confirmedCases = await apiClient.get(
       "/country/" + slug + "/status/confirmed"
     );
-    console.log(confirmedCases);
     const recoveredCases = await apiClient.get(
       "/country/" + slug + "/status/recovered"
     );

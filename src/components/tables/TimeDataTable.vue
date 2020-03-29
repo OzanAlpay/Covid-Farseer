@@ -31,20 +31,53 @@
         <h3>Your Predictions</h3></i-column
       ></i-row
     >
+    <i-table repsonsive hover bordered striped offset-xs="1">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Confirmed</th>
+          <th>Recovered</th>
+          <th>Deaths</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(data, index) of predictedData.predictions" :key="index">
+          <td>{{ data.date | formatDate }}</td>
+          <td>
+            <i-input size="sm" v-model="data.confirmedCases" />
+          </td>
+          <td>
+            <i-input size="sm" v-model="data.recoveredCases" />
+          </td>
+          <td>
+            <i-input size="sm" v-model="data.deathCases" />
+          </td>
+        </tr>
+      </tbody>
+    </i-table>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import moment from "moment";
 export default {
   name: "TimeDataTable",
-  computed: { ...mapGetters(["getLastDaysDetailsForSelectedCountry"]) },
+  computed: {
+    ...mapGetters(["getLastDaysDetailsForSelectedCountry"]),
+    getLastDataReceivedDate() {
+      const lastDayData = this.getLastDaysDetailsForSelectedCountry.confirmedCases.slice(
+        -1
+      );
+      console.log(lastDayData);
+      return lastDayData.Date;
+    }
+  },
   methods: {
     createArrayFromBulkData: function(data) {
+      console.log(data);
       const arrayizedData = [];
       for (let index = 0; index < data.len; index++) {
-        console.log("Index === " + index);
-        console.log(data[index]);
         arrayizedData.push({
           date: data.confirmedCases[index].Date,
           confirmedCases: data.confirmedCases[index].Cases,
@@ -58,7 +91,30 @@ export default {
   data() {
     return {
       predictedData: {
-        prediction: null
+        predictions: [
+          {
+            date: moment(this.getLastDataReceivedDate).toISOString(),
+            confirmedCases: null,
+            recoveredCases: null,
+            deathCases: null
+          },
+          {
+            date: moment(this.getLastDataReceivedDate)
+              .add("1", "days")
+              .toISOString(),
+            confirmedCases: null,
+            recoveredCases: null,
+            deathCases: null
+          },
+          {
+            date: moment(this.getLastDataReceivedDate)
+              .add("2", "days")
+              .toISOString(),
+            confirmedCases: null,
+            recoveredCases: null,
+            deathCases: null
+          }
+        ]
       }
     };
   }
