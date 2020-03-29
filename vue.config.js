@@ -1,3 +1,4 @@
 module.exports = {
-  transpileDependencies: ["@inkline/inkline"]
+  transpileDependencies: ["@inkline/inkline"],
+  publicPath: "/"
 };
