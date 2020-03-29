@@ -16,14 +16,26 @@ export default {
   },
   async getDataByCountrySlug(slug) {
     const confirmedCases = await apiClient.get(
-      "/country/" + slug + "/status/confirmed"
+      "/total/dayone/country/" + slug + "/status/confirmed"
     );
     const recoveredCases = await apiClient.get(
-      "/country/" + slug + "/status/recovered"
+      "/total/dayone/country/" + slug + "/status/recovered"
     );
     const deathCases = await apiClient.get(
-      "/country/" + slug + "/status/deaths"
+      "/total/dayone/country/" + slug + "/status/deaths"
     );
+    //Remove only confirmed data.
+    let smallestArrLen = 0;
+    if (recoveredCases.data.length > deathCases.data.length) {
+      smallestArrLen = deathCases.data.length;
+      confirmedCases.data = confirmedCases.data.slice(-smallestArrLen);
+      recoveredCases.data = recoveredCases.data.slice(-smallestArrLen);
+    } else {
+      smallestArrLen = recoveredCases.data.length;
+      confirmedCases.data = confirmedCases.data.slice(-smallestArrLen);
+      deathCases.data = deathCases.data.slice(-smallestArrLen);
+    }
+
     const receivedData = {
       confirmed: confirmedCases,
       recovered: recoveredCases,
