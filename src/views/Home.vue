@@ -11,6 +11,12 @@
         <GraphColumn />
       </i-layout-content>
     </i-layout>
+    <i-layout-footer>
+      <p>
+        Developed By Ozan Alpay. GitHub Repository:
+        <a href="https://github.com/OzanAlpay/Covid-Foreseer">Covid Foreseer</a>
+      </p>
+    </i-layout-footer>
   </i-layout>
 </template>
 
