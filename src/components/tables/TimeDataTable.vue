@@ -80,15 +80,8 @@
 
 <script>
 function initalData(getLastDataReceivedDate) {
-  console.log("Initial Data Called!");
   return {
     predictions: [
-      {
-        date: moment(getLastDataReceivedDate).toISOString(),
-        confirmedCases: null,
-        recoveredCases: null,
-        deathCases: null
-      },
       {
         date: moment(getLastDataReceivedDate)
           .add("1", "days")
@@ -100,6 +93,14 @@ function initalData(getLastDataReceivedDate) {
       {
         date: moment(getLastDataReceivedDate)
           .add("2", "days")
+          .toISOString(),
+        confirmedCases: null,
+        recoveredCases: null,
+        deathCases: null
+      },
+      {
+        date: moment(getLastDataReceivedDate)
+          .add("3", "days")
           .toISOString(),
         confirmedCases: null,
         recoveredCases: null,
@@ -126,7 +127,7 @@ export default {
       const lastDayData = this.getLastDaysDetailsForSelectedCountry.confirmedCases.slice(
         -1
       );
-      return lastDayData.Date;
+      return lastDayData[0].Date;
     }
   },
   methods: {
@@ -147,7 +148,6 @@ export default {
       this.$store.dispatch("setUserPredictions", this.predictedData);
     },
     resetData() {
-      console.log("Reset Data Called!");
       this.predictedData = initalData(this.getLastDataReceivedDate);
     }
   },

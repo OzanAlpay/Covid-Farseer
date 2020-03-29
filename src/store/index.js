@@ -92,7 +92,7 @@ export default new Vuex.Store({
         country => country.slug === slugName
       );
       if (country.length !== 1) {
-        console.error("We have a problem Houston!");
+        // console.error("We have a problem Houston!");
         // TODO Fallback to default?
       }
       commit("RESET_USER_PREDICTIONS");
@@ -148,7 +148,6 @@ export default new Vuex.Store({
       return state.selectedCountry.deathCaseData;
     },
     getLastDaysDetailsForSelectedCountry(state, getters) {
-      console.log("Vuex Fired getLastDaysDetails For Selected Country !");
       const days = 3; // TODO pass it as a parameter later
       return {
         confirmedCases: getters.getSelectedCountryConfirmedCases.slice(-days),
