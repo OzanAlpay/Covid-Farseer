@@ -16,3 +16,9 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount("#app");
+
+const isLocal = document.location.hostname === "localhost";
+
+if (isLocal) {
+  window["ga-disable-UA-162187569-1"] = true;
+}
