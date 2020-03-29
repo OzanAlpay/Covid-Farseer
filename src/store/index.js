@@ -69,7 +69,6 @@ export default new Vuex.Store({
   },
   actions: {
     setUserPredictions({ commit }, data) {
-      console.log(data);
       commit(
         "SET_USER_PREDICTIONS_CONFIRMED_CASES",
         data.predictions.map(prediction => prediction.confirmedCases)
@@ -96,6 +95,7 @@ export default new Vuex.Store({
         console.error("We have a problem Houston!");
         // TODO Fallback to default?
       }
+      commit("RESET_USER_PREDICTIONS");
       country = country[0];
       return CovidService.getDataByCountrySlug(country.slug).then(
         receivedData => {
@@ -148,6 +148,7 @@ export default new Vuex.Store({
       return state.selectedCountry.deathCaseData;
     },
     getLastDaysDetailsForSelectedCountry(state, getters) {
+      console.log("Vuex Fired getLastDaysDetails For Selected Country !");
       const days = 3; // TODO pass it as a parameter later
       return {
         confirmedCases: getters.getSelectedCountryConfirmedCases.slice(-days),
@@ -158,6 +159,13 @@ export default new Vuex.Store({
     },
     getUserPredictions(state) {
       return state.userPredictions;
+    },
+    isUserSelectedACountry(state) {
+      const cData = state.selectedCountry.countryData;
+      if (Object.keys(cData).length === 0 && cData.constructor === Object) {
+        return false;
+      }
+      return true;
     }
   },
   modules: {}

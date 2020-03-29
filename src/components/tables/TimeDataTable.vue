@@ -1,85 +1,127 @@
 <template>
   <div>
-    <i-row
-      ><i-column xs="8" offset-xs="2"> <h3>Last 3 Days</h3></i-column></i-row
-    >
-    <i-table repsonsive hover bordered striped>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Confirmed</th>
-          <th>Recovered</th>
-          <th>Deaths</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(data, index) of createArrayFromBulkData(
-            this.getLastDaysDetailsForSelectedCountry
-          )"
-          :key="index"
-        >
-          <td>{{ data.date | formatDate }}</td>
-          <td>{{ data.confirmedCases }}</td>
-          <td>{{ data.recoveredCases }}</td>
-          <td>{{ data.deathCases }}</td>
-        </tr>
-      </tbody>
-    </i-table>
-    <i-row
-      ><i-column xs="8" offset-xs="2">
-        <h3>Your Predictions</h3></i-column
-      ></i-row
-    >
-    <i-table repsonsive hover bordered striped offset-xs="1">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Confirmed</th>
-          <th>Recovered</th>
-          <th>Deaths</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(data, index) of predictedData.predictions" :key="index">
-          <td>{{ data.date | formatDate }}</td>
-          <td>
-            <i-input
-              type="number"
-              size="sm"
-              @change="onPredictionChange()"
-              v-model.number="data.confirmedCases"
-            />
-          </td>
-          <td>
-            <i-input
-              type="number"
-              size="sm"
-              @change="onPredictionChange()"
-              v-model.number="data.recoveredCases"
-            />
-          </td>
-          <td>
-            <i-input
-              type="number"
-              size="sm"
-              @change="onPredictionChange()"
-              v-model.number="data.deathCases"
-            />
-          </td>
-        </tr>
-      </tbody>
-    </i-table>
+    <div v-if="isUserSelectedACountry">
+      <i-row
+        ><i-column xs="8" offset-xs="2"> <h3>Last 3 Days</h3></i-column></i-row
+      >
+      <i-table repsonsive hover bordered striped>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Confirmed</th>
+            <th>Recovered</th>
+            <th>Deaths</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(data, index) of createArrayFromBulkData(
+              this.getLastDaysDetailsForSelectedCountry
+            )"
+            :key="index"
+          >
+            <td>{{ data.date | formatDate }}</td>
+            <td>{{ data.confirmedCases }}</td>
+            <td>{{ data.recoveredCases }}</td>
+            <td>{{ data.deathCases }}</td>
+          </tr>
+        </tbody>
+      </i-table>
+      <i-row
+        ><i-column xs="8" offset-xs="2">
+          <h3>Your Predictions</h3></i-column
+        ></i-row
+      >
+      <i-table repsonsive hover bordered striped offset-xs="1">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Confirmed</th>
+            <th>Recovered</th>
+            <th>Deaths</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(data, index) of predictedData.predictions" :key="index">
+            <td>{{ data.date | formatDate }}</td>
+            <td>
+              <i-input
+                type="number"
+                size="sm"
+                @change="onPredictionChange()"
+                v-model.number="data.confirmedCases"
+              />
+            </td>
+            <td>
+              <i-input
+                type="number"
+                size="sm"
+                @change="onPredictionChange()"
+                v-model.number="data.recoveredCases"
+              />
+            </td>
+            <td>
+              <i-input
+                type="number"
+                size="sm"
+                @change="onPredictionChange()"
+                v-model.number="data.deathCases"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </i-table>
+    </div>
+    <div v-else>
+      <h3>Please Select A Country First!</h3>
+    </div>
   </div>
 </template>
 
 <script>
+function initalData(getLastDataReceivedDate) {
+  console.log("Initial Data Called!");
+  return {
+    predictions: [
+      {
+        date: moment(getLastDataReceivedDate).toISOString(),
+        confirmedCases: null,
+        recoveredCases: null,
+        deathCases: null
+      },
+      {
+        date: moment(getLastDataReceivedDate)
+          .add("1", "days")
+          .toISOString(),
+        confirmedCases: null,
+        recoveredCases: null,
+        deathCases: null
+      },
+      {
+        date: moment(getLastDataReceivedDate)
+          .add("2", "days")
+          .toISOString(),
+        confirmedCases: null,
+        recoveredCases: null,
+        deathCases: null
+      }
+    ]
+  };
+}
 import { mapGetters } from "vuex";
 import moment from "moment";
 export default {
   name: "TimeDataTable",
+  watch: {
+    getLastDaysDetailsForSelectedCountry: function() {
+      this.predictedData = initalData(this.getLastDataReceivedDate);
+    }
+  },
   computed: {
-    ...mapGetters(["getLastDaysDetailsForSelectedCountry"]),
+    ...mapGetters([
+      "getLastDaysDetailsForSelectedCountry",
+      "isUserSelectedACountry"
+    ]),
     getLastDataReceivedDate() {
       const lastDayData = this.getLastDaysDetailsForSelectedCountry.confirmedCases.slice(
         -1
@@ -98,41 +140,19 @@ export default {
           deathCases: data.deathCases[index].Cases
         });
       }
+      //this.resetData();
       return arrayizedData;
     },
     onPredictionChange() {
       this.$store.dispatch("setUserPredictions", this.predictedData);
+    },
+    resetData() {
+      console.log("Reset Data Called!");
+      this.predictedData = initalData(this.getLastDataReceivedDate);
     }
   },
   data() {
-    return {
-      predictedData: {
-        predictions: [
-          {
-            date: moment(this.getLastDataReceivedDate).toISOString(),
-            confirmedCases: null,
-            recoveredCases: null,
-            deathCases: null
-          },
-          {
-            date: moment(this.getLastDataReceivedDate)
-              .add("1", "days")
-              .toISOString(),
-            confirmedCases: null,
-            recoveredCases: null,
-            deathCases: null
-          },
-          {
-            date: moment(this.getLastDataReceivedDate)
-              .add("2", "days")
-              .toISOString(),
-            confirmedCases: null,
-            recoveredCases: null,
-            deathCases: null
-          }
-        ]
-      }
-    };
+    return { predictedData: initalData(this.getLastDataReceivedDate) };
   }
 };
 </script>

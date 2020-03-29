@@ -5,7 +5,6 @@
     </i-layout-header>
     <i-layout vertical>
       <i-layout-aside class="_background-primary">
-        Left Aside
         <TimeDataColumn />
       </i-layout-aside>
       <i-layout-content class="_background-light">
