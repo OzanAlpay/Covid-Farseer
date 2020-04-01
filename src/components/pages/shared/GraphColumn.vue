@@ -19,6 +19,7 @@
 
 <script>
 import Vue from "vue";
+import moment from "moment";
 import { mapGetters } from "vuex";
 import CovidLineChart from "../../charts/CovidLineChart.vue";
 export default {
@@ -97,9 +98,35 @@ export default {
       };
     },
     chartOptions() {
+      let today = moment().toISOString();
+      if (this.getUserPredictions.isPredictionDone) {
+        today = this.getSelectedCountryConfirmedCases.slice(-1)[0].Date;
+      }
+      today = Vue.filter("formatDate")(today);
+      console.log(today);
       return {
         maintainAspectRatio: false,
-        aspectRatio: 400
+        aspectRatio: 400,
+        annotation: {
+          drawTime: "afterDatasetsDraw",
+          annotations: [
+            {
+              type: "line",
+              id: "vline1",
+              mode: "vertical",
+              scaleID: "x-axis-0",
+              value: today,
+              borderColor: "yellow",
+              borderDash: [2, 2],
+              borderWidth: 3,
+              label: {
+                enabled: true,
+                position: "left",
+                content: "TODAY"
+              }
+            }
+          ]
+        }
       };
     }
   }
