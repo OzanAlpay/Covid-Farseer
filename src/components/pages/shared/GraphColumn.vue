@@ -72,7 +72,7 @@ export default {
             data: this.getConfirmedCaseData,
             borderColor: "#3e95cd",
             fill: false,
-            borderWidth: 1,
+            borderWidth: 4,
             pointBorderWidth: 2,
             pointHitRadius: 3
           },
@@ -81,7 +81,7 @@ export default {
             data: this.getRecoveredCaseData,
             borderColor: "#60ff88",
             fill: false,
-            borderWidth: 1,
+            borderWidth: 2,
             pointBorderWidth: 2,
             pointHitRadius: 3
           },
@@ -90,7 +90,7 @@ export default {
             data: this.getDeathCaseData,
             borderColor: "#ff2020",
             fill: false,
-            borderWidth: 1,
+            borderWidth: 2,
             pointBorderWidth: 2,
             pointHitRadius: 3
           }
@@ -103,7 +103,6 @@ export default {
         today = this.getSelectedCountryConfirmedCases.slice(-1)[0].Date;
       }
       today = Vue.filter("formatDate")(today);
-      console.log(today);
       return {
         maintainAspectRatio: false,
         aspectRatio: 400,
@@ -122,7 +121,7 @@ export default {
               label: {
                 enabled: true,
                 position: "left",
-                content: "TODAY"
+                content: "Today"
               }
             }
           ]
