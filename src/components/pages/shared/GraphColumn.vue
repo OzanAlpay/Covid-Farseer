@@ -19,6 +19,7 @@
 
 <script>
 import Vue from "vue";
+import moment from "moment";
 import { mapGetters } from "vuex";
 import CovidLineChart from "../../charts/CovidLineChart.vue";
 export default {
@@ -71,7 +72,7 @@ export default {
             data: this.getConfirmedCaseData,
             borderColor: "#3e95cd",
             fill: false,
-            borderWidth: 1,
+            borderWidth: 4,
             pointBorderWidth: 2,
             pointHitRadius: 3
           },
@@ -80,7 +81,7 @@ export default {
             data: this.getRecoveredCaseData,
             borderColor: "#60ff88",
             fill: false,
-            borderWidth: 1,
+            borderWidth: 2,
             pointBorderWidth: 2,
             pointHitRadius: 3
           },
@@ -89,7 +90,7 @@ export default {
             data: this.getDeathCaseData,
             borderColor: "#ff2020",
             fill: false,
-            borderWidth: 1,
+            borderWidth: 2,
             pointBorderWidth: 2,
             pointHitRadius: 3
           }
@@ -97,9 +98,34 @@ export default {
       };
     },
     chartOptions() {
+      let today = moment().toISOString();
+      if (this.getUserPredictions.isPredictionDone) {
+        today = this.getSelectedCountryConfirmedCases.slice(-1)[0].Date;
+      }
+      today = Vue.filter("formatDate")(today);
       return {
         maintainAspectRatio: false,
-        aspectRatio: 400
+        aspectRatio: 400,
+        annotation: {
+          drawTime: "afterDatasetsDraw",
+          annotations: [
+            {
+              type: "line",
+              id: "vline1",
+              mode: "vertical",
+              scaleID: "x-axis-0",
+              value: today,
+              borderColor: "yellow",
+              borderDash: [2, 2],
+              borderWidth: 3,
+              label: {
+                enabled: true,
+                position: "left",
+                content: "Today"
+              }
+            }
+          ]
+        }
       };
     }
   }

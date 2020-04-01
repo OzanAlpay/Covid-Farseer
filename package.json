@@ -13,6 +13,7 @@
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
     "chartjs": "^0.3.24",
+    "chartjs-plugin-annotation": "^0.5.7",
     "core-js": "^3.6.4",
     "moment": "^2.24.0",
     "vue": "^2.6.11",

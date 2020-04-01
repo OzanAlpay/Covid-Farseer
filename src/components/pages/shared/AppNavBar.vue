@@ -19,9 +19,6 @@
               />
             </i-select>
           </i-nav-item>
-          <!--<i-nav-item :to="{ name: 'index' }">Router Link</i-nav-item>
-          <i-nav-item>Item</i-nav-item>
-          <i-nav-item disabled>Disabled</i-nav-item> -->
         </i-nav>
       </i-column>
     </i-row>

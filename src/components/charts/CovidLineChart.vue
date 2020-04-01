@@ -1,5 +1,7 @@
 <script>
 import { Line, mixins } from "vue-chartjs";
+// eslint-disable-next-line
+import chartjsPluginAnnotation from "chartjs-plugin-annotation";
 const { reactiveProp } = mixins;
 export default {
   extends: Line,
