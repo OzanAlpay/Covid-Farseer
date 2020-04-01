@@ -4,12 +4,30 @@
       ><AppNavBar :countries="getAvailableCountries" />
     </i-layout-header>
     <i-layout vertical>
-      <i-layout-aside class="_background-primary">
-        <TimeDataColumn />
-      </i-layout-aside>
-      <i-layout-content class="_background-light">
-        <GraphColumn />
-      </i-layout-content>
+      <i-container fluid>
+        <i-row>
+          <i-column
+            xl="4"
+            lg="4"
+            md="4"
+            sm="4"
+            xs="12"
+            class="_background-primary"
+          >
+            <TimeDataColumn />
+          </i-column>
+          <i-column
+            xl="8"
+            lg="8"
+            md="8"
+            sm="8"
+            xs="12"
+            class="_background-light"
+          >
+            <GraphColumn />
+          </i-column>
+        </i-row>
+      </i-container>
     </i-layout>
     <i-layout-footer>
       <p>

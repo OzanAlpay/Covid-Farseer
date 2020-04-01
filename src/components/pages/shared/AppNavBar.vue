@@ -8,6 +8,7 @@
             <i-select
               @input="onSelectionChange($event)"
               :placeholder="showPlaceholder"
+              value="Select A Country"
             >
               <i-select-option
                 v-for="(country, index) of countries"
